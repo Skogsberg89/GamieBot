@@ -2,6 +2,8 @@ package com.gamiebot.listeners.impl;
 
 import com.gamiebot.listeners.MessageListeners;
 import com.gamiebot.listeners.commands.Controller;
+import org.javacord.api.entity.message.MessageBuilder;
+import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +22,21 @@ public class Listener implements MessageListeners {
                 event.getChannel().sendMessage("Hi " + name + "!");
             }else {
                 con = new Controller(message, name);
-                event.getChannel().sendMessage(con.getReturnMessage());
+                if(con.isMessageBuilder()){
+                    messageBuilder(con, event);
+                }else {
+                    event.getChannel().sendMessage(con.getReturnMessage());
+                }
             }
         }
+    }
 
+    private void messageBuilder(Controller con, MessageCreateEvent event) {
+        new MessageBuilder().setEmbed(new EmbedBuilder()
+                .setAuthor(event.getMessageAuthor())
+                .setTitle(con.getTitle())
+                .setDescription(con.getReturnMessage())
+                .setThumbnail(con.getIcon())
+                .setColor(con.getColor())).send(event.getChannel());
     }
 }

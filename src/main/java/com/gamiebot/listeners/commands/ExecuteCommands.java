@@ -2,13 +2,13 @@ package com.gamiebot.listeners.commands;
 
 public class ExecuteCommands {
 
-    private Controller con;
+    private final Controller con;
 
     public ExecuteCommands(Controller con) {
         this.con = con;
     }
 
     public void help() {
-        con.setReturnMessage("need help " + con.getName());
+        con.setReturnMessage("So " + con.getName() + " what can i help you white?");
     }
 }

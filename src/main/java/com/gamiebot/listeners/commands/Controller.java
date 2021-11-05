@@ -1,47 +1,28 @@
 package com.gamiebot.listeners.commands;
 
-import java.text.MessageFormat;
-import java.util.Map;
+import java.awt.*;
 
 public class Controller {
 
-    private String message;
-    private String name;
+    private final String message;
+    private final String name;
     private String returnMessage;
-    private Map<String, Integer> commands;
-
+    private String footer;
+    private String title;
+    private String icon;
+    private String url;
+    private Color color;
+    private boolean messageBuilder;
 
     public Controller(String message, String name) {
         this.message = message;
         this.name = name;
-        checkMessage(message);
+        messageBuilder = false;
+        checkMessage();
     }
 
-    private void checkMessage(String message) {
-        commands = Commands.commands;
-        for (String c : commands.keySet()) {
-            System.out.println(c);
-            if (message.startsWith(c)) {
-                commandExecute(commands.get(c));
-                break;
-            }else {
-                commandExecute(0);
-            }
-        }
-    }
-
-    private void commandExecute(int command) {
-        switch (command){
-            case 0:
-                commandDoesNotExist();
-        }
-    }
-
-    private void commandDoesNotExist() {
-        String returnMessage = MessageFormat.format("Sorry {0}! \n " +
-                "Don't know what you mean. \n " +
-                "If you need help write <!Teemo help>", name);
-        setReturnMessage(returnMessage);
+    private void checkMessage() {
+        new Commands(this);
     }
 
     public String getReturnMessage() {
@@ -50,5 +31,61 @@ public class Controller {
 
     public void setReturnMessage(String returnMessage) {
         this.returnMessage = returnMessage;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public boolean isMessageBuilder() {
+        return messageBuilder;
+    }
+
+    public void setMessageBuilder(boolean messageBuilder) {
+        this.messageBuilder = messageBuilder;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getFooter() {
+        return footer;
+    }
+
+    public void setFooter(String footer) {
+        this.footer = footer;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

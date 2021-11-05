@@ -1,16 +1,45 @@
 package com.gamiebot.listeners.commands;
 
-import java.util.HashMap;
+import java.awt.*;
+import java.text.MessageFormat;
 import java.util.Map;
 
-public class Commands {
-    public static final String ACTIVATE = ".gamie";
-    public static final Map<String, Integer> commands;
+public class Commands extends CommandsLibrary{
 
-    static {
-        commands = new HashMap<>();
-        commands.put(".gamie help", 1); //Print out all Commands
-        commands.put(".gamie add me", 2); //Add lol player to db
-        commands.put(".gamie show last game", 3); //Show last game player played
+    public Commands(Controller con) {
+        this.con = con;
+        executeRightCommand(con.getMessage());
+    }
+
+    private Map<String, Runnable> checkCommand(String command) {
+        String LOL = ".gamie -lol";
+        String STEAM = ".gamie -steam";
+        if(command.startsWith(LOL)) { return lolCommands; }
+        else if(command.startsWith(STEAM)) { return steamCommands; }
+        else { return otherCommands; }
+    }
+
+    private void executeRightCommand(String command) {
+        Map<String, Runnable> map = checkCommand(command);
+        for (String c : map.keySet()) {
+            System.out.println(c);
+            if (command.startsWith(c)) {
+                map.get(c).run();
+                break;
+            }else {
+                commandDoesNotExist();
+            }
+        }
+    }
+
+    private void commandDoesNotExist() {
+        String returnMessage = MessageFormat.format("Sorry {0}! \n " +
+                "Don't know what you mean. \n " +
+                "Do you need help? visit http://www.help.com", con.getName());
+        con.setTitle("Failed!");
+        con.setReturnMessage(returnMessage);
+        con.setColor(Color.red);
+        con.setIcon("https://icons.iconarchive.com/icons/paomedia/small-n-flat/48/sign-error-icon.png");
+        con.setMessageBuilder(true);
     }
 }

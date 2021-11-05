@@ -7,8 +7,10 @@ public class Controller {
     private final String message;
     private final String name;
     private String returnMessage;
+    private String footer;
     private String title;
     private String icon;
+    private String url;
     private Color color;
     private boolean messageBuilder;
 
@@ -69,5 +71,21 @@ public class Controller {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getFooter() {
+        return footer;
+    }
+
+    public void setFooter(String footer) {
+        this.footer = footer;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

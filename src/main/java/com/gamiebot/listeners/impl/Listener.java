@@ -37,6 +37,8 @@ public class Listener implements MessageListeners {
                 .setTitle(con.getTitle())
                 .setDescription(con.getReturnMessage())
                 .setThumbnail(con.getIcon())
+                .setUrl(con.getUrl())
+                .setFooter(con.getFooter())
                 .setColor(con.getColor())).send(event.getChannel());
     }
 }

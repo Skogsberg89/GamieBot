@@ -11,20 +11,17 @@ public class Commands extends CommandsLibrary{
         executeRightCommand(con.getMessage());
     }
 
-    private Map<String, Runnable> checkCommand(String command) {
-        String LOL = ".gamie -lol";
-        String STEAM = ".gamie -steam";
+    private Map<String, Runnable> getRightDict(String command) {
         if(command.startsWith(LOL)) { return lolCommands; }
         else if(command.startsWith(STEAM)) { return steamCommands; }
         else { return otherCommands; }
     }
 
     private void executeRightCommand(String command) {
-        Map<String, Runnable> map = checkCommand(command);
-        for (String c : map.keySet()) {
-            System.out.println(c);
+        Map<String, Runnable> commandDict = getRightDict(command);
+        for (String c : commandDict.keySet()) {
             if (command.startsWith(c)) {
-                map.get(c).run();
+                commandDict.get(c).run();
                 break;
             }else {
                 commandDoesNotExist();

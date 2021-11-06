@@ -10,49 +10,35 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
 
-public class SteamNews {
+public class SteamNews extends SteamLibrary{
 
-    private final Map<String, String> apps = new HashMap<>();
-    {
-        apps.put("counter strike", "730");
-        apps.put("cs", "730");
-        apps.put("team fortress 2", "440");
-        apps.put("tf2", "440");
-    }
-
-    private final String app;
+    private final String game;
     private final Controller con;
-    private final String appId;
+    private final String gameId;
 
-    public SteamNews(String app, Controller con){
-        this.app = app;
+    public SteamNews(String game, Controller con){
+        this.game = game;
         this.con = con;
-        appId = findApp();
-        getNews();
-
+        gameId = findGameId(this.game);
+        getGameNews();
     }
 
-    private String findApp() {
-        for (String a : apps.keySet()) {
-            if (a.equals(app)) { return apps.get(a); }
-        }
-        return "";
+    private String findGameId(String game) {
+        return gamesIdDict.get(game);
     }
 
-    private void getNews() {
-        if(appId.isEmpty()){
+    private void getGameNews() {
+        if(gameId == null){
             con.setReturnMessage(buildErrorMessage());
         }else{
-            String path = String.format("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=%s&count=1&maxlength=300&format=json", appId);
+            String path = String.format(NEWS_API, gameId);
             sendRequest(path);
         }
     }
 
     private String buildErrorMessage() {
-        return MessageFormat.format("Sorry {0} !\n I cant find the game {1}", con.getName(), app);
+        return MessageFormat.format("Sorry {0} !\n I cant find the game {1}", con.getName(), game);
     }
 
     private void sendRequest(String path) {
@@ -84,5 +70,4 @@ public class SteamNews {
         con.setIcon("https://seeklogo.com/images/S/steam-logo-73274B19E3-seeklogo.com.png");
         con.setMessageBuilder(true);
     }
-
 }

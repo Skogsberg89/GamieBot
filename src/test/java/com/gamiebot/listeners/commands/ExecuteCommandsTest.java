@@ -21,7 +21,7 @@ class ExecuteCommandsTest {
     @DisplayName("Steam news with no game in input")
     void steamNewsNoGameInput() {
         con = new Controller(".gamie -steam news", "testbot");
-        EXPECT_STRING = con.getName() + " which game do you want news of?\n .game -steam news <game> ";
+        EXPECT_STRING = con.getName() + " Which game do you want news of?\n .game -steam news <game> ";
         assertEquals(EXPECT_STRING, con.getReturnMessage());
     }
 }

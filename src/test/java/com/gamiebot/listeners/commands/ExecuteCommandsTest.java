@@ -12,6 +12,7 @@ class ExecuteCommandsTest {
     @Test
     @DisplayName("Return help Message")
     void help() {
+        //Start
         con = new Controller(".gamie help", "testbot");
         EXPECT_STRING = "So " + con.getName() + " what can i help you with?";
         assertEquals(EXPECT_STRING, con.getReturnMessage());

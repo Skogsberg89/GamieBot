@@ -19,7 +19,7 @@ public class Listener implements MessageListeners {
         String message = event.getMessageContent().toLowerCase();
         if(message.startsWith(ACTIVATE)){
             if(message.equals(ACTIVATE)){
-                event.getChannel().sendMessage("Hi " + name + "!");
+                event.getChannel().sendMessage("Hi " + name + " !");
             }else {
                 con = new Controller(message, name);
                 if(con.isMessageBuilder()){

@@ -18,7 +18,7 @@ public class ExecuteCommands {
         String DELETE = ".gamie -steam news";
         String game = getArgumentFromCommand(con.getMessage(), DELETE);
         if(game.isEmpty()){
-            con.setReturnMessage(con.getName() + " Which game do you want news of?\n .game -steam new <game> ");
+            con.setReturnMessage(con.getName() + " Which game do you want news of?\n .game -steam news <game> ");
         }else {
             new SteamNews(game, con);
         }

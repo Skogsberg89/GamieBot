@@ -34,7 +34,7 @@ jobs:
         cache: maven
       
     - name: Build with Maven
-      run: mvn package --file pom.xml
+      run: mvn clean compile package -Dmaven.test.skip=true
       
   test:
     needs: build

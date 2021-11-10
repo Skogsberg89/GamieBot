@@ -6,7 +6,15 @@ name: CI/CD
 on:
   push:
     branches:
-      - '*'
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+    types: 
+      - ready_for_review
+      - review_requested
 env:  
   TOKEN: ${{secrets.TOKEN}}  
 

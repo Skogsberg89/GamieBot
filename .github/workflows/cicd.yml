@@ -50,14 +50,14 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-      
-    - name: Run UnitTests
-      run: mvn -B test
-      
+        
     - name: Download Artifacts
       uses: actions/download-artifact@v2
       with:
         path: artifacts
+      
+    - name: Run UnitTests
+      run: mvn -B test
       
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1.23

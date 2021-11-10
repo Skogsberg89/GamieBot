@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class GamiebotApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+
 
 }

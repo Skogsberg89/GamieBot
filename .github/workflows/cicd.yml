@@ -76,9 +76,7 @@ jobs:
           path: artifacts
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          check_name: Unit Test Results
-          files: "target/surefire-reports/*.xml"
+
 
     
 

@@ -25,7 +25,7 @@ class ExecuteCommandsTest {
         //Given
         con = new Controller(".gamie -steam news", "testbot");
         //Expect
-        EXPECT_STRING = con.getName() + " which game do you want news of?\n .game -steam news <game> ";
+        EXPECT_STRING = con.getName() + " Which game do you want news of?\n .game -steam news <game> ";
         assertEquals(EXPECT_STRING, con.getReturnMessage());
     }
 }

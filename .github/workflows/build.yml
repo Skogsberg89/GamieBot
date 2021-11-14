@@ -1,13 +1,12 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: CI/CD
+name: Build
 
 on:
   push:
     branches:
-      - main
-      - dev
+      - '*'
   pull_request:
     branches:
       - main
@@ -53,33 +52,3 @@ jobs:
       
     - name: Run UnitTests
       run: mvn -B test
-    - name: Publish Test Reporty 
-      uses: scacap/action-surefire-report@v1
-      with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload Unit Test Results
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: Unit Test Results (Java ${{ matrix.java }})
-        path: target/surefire-reports/*
-  
-  publish-test-results:
-      name: "Publish Unit Tests Results"
-      needs: test
-      runs-on: ubuntu-latest
-      if: success() || failure()
-      steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: artifacts
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          check_name: Unit Test Results
-          files: "artifacts/target/surefire-reports/*.xml"
-
-
-    
-

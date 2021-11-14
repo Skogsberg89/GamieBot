@@ -4,8 +4,11 @@ import com.gamiebot.listeners.MessageListeners;
 import com.gamiebot.listeners.commands.Controller;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class Listener implements MessageListeners {
@@ -17,11 +20,13 @@ public class Listener implements MessageListeners {
     public void onMessageCreate(MessageCreateEvent event) {
         String name = event.getMessageAuthor().getDisplayName();
         String message = event.getMessageContent().toLowerCase();
+        String channel = event.getChannel().toString();
+        String server = event.getServer().get().toString();
         if(message.startsWith(ACTIVATE)){
             if(message.equals(ACTIVATE)){
                 event.getChannel().sendMessage("Hi " + name + " !");
             }else {
-                con = new Controller(message, name);
+                con = new Controller(message, name, channel, server);
                 if(con.isMessageBuilder()){
                     messageBuilder(con, event);
                 }else {

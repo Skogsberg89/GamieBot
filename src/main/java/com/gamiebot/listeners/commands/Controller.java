@@ -6,6 +6,8 @@ public class Controller {
 
     private final String message;
     private final String name;
+    private final String channel;
+    private final String server;
     private String returnMessage;
     private String footer;
     private String title;
@@ -14,9 +16,11 @@ public class Controller {
     private Color color;
     private boolean messageBuilder;
 
-    public Controller(String message, String name) {
+    public Controller(String message, String name, String channel, String server) {
         this.message = message;
         this.name = name;
+        this.channel = channel;
+        this.server = server;
         messageBuilder = false;
         checkMessage();
     }
@@ -39,6 +43,14 @@ public class Controller {
 
     public String getName() {
         return name;
+    }
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public String getServer() {
+        return server;
     }
 
     public String getTitle() {

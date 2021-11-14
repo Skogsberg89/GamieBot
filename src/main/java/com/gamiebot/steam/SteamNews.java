@@ -1,6 +1,9 @@
 package com.gamiebot.steam;
 
 import com.gamiebot.listeners.commands.Controller;
+import message.LogMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
@@ -13,6 +16,7 @@ import java.text.MessageFormat;
 
 public class SteamNews extends SteamLibrary{
 
+    private static final Logger LOG = LoggerFactory.getLogger(SteamNews.class);
     private final String game;
     private final Controller con;
     private final String gameId;
@@ -30,6 +34,7 @@ public class SteamNews extends SteamLibrary{
 
     private void getGameNews() {
         if(gameId == null){
+            LOG.warn(LogMessage.cantFindGameLog(con, game));
             con.setReturnMessage(buildErrorMessage());
         }else{
             String path = String.format(NEWS_API, gameId);
@@ -51,7 +56,8 @@ public class SteamNews extends SteamLibrary{
             JSONObject values = sortResponse(json);
             buildMessage(values);
         }catch (Exception e) {
-            con.setReturnMessage("Sorry!\n " + e);
+            LOG.error(e.toString());
+            con.setReturnMessage("Sorry!" + con.getName() + "\n can not get the data from steam :(");
         }
     }
 

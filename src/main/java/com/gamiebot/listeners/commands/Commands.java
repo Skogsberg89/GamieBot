@@ -1,17 +1,19 @@
 package com.gamiebot.listeners.commands;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 import java.text.MessageFormat;
 import java.util.Map;
 
 public class Commands extends CommandsLibrary{
 
-    public Commands(Controller con) {
+    public Commands(@NotNull Controller con) {
         this.con = con;
         executeRightCommand(con.getMessage());
     }
 
-    private Map<String, Runnable> getRightDict(String command) {
+    private Map<String, Runnable> getRightDict(@NotNull String command) {
         if(command.startsWith(LOL)) { return lolCommands; }
         else if(command.startsWith(STEAM)) { return steamCommands; }
         else { return otherCommands; }

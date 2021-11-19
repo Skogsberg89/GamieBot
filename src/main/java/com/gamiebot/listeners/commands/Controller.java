@@ -21,7 +21,7 @@ public class Controller {
         this.name = name;
         this.channel = channel;
         this.server = server;
-        messageBuilder = false;
+        this.messageBuilder = false;
         checkMessage();
     }
 

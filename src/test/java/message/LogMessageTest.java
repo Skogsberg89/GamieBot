@@ -1,6 +1,7 @@
 package message;
 
 import com.gamiebot.listeners.commands.Controller;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,15 +12,19 @@ class LogMessageTest {
     public static Controller con;
     public String EXPECT_STRING;
     public String GAME;
-    private final String TEST_USER = "testBot";
-    private final String TEST_CHANNEL = "testChannel";
-    private final String TEST_SERVER = "testServer";
+
+    @BeforeAll
+    public static void setUp() {
+        String TEST_USER = "testBot";
+        String TEST_CHANNEL = "testChannel";
+        String TEST_SERVER = "testServer";
+        con = new Controller("a message", TEST_USER, TEST_CHANNEL, TEST_SERVER);
+    }
 
     @Test
     @DisplayName("When No game is given, Steam news")
     void noGameLog() {
         //Given
-        con = new Controller(".gamie -steam news", TEST_USER, TEST_CHANNEL, TEST_SERVER);
         EXPECT_STRING = "No game was given by testBot in channel testChannel in server testServer";
         //When
         String actualString = LogMessage.noGameLog(con);
@@ -32,7 +37,6 @@ class LogMessageTest {
     void cantFindGameLog() {
         //Given
         GAME = "testGame";
-        con = new Controller("a message", TEST_USER, TEST_CHANNEL, TEST_SERVER);
         EXPECT_STRING = "The game testGame do not exist in gamies library. User testBot, testChannel in server testServer";
         //When
         String actualString = LogMessage.cantFindGameLog(con, GAME);

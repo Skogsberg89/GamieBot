@@ -43,4 +43,16 @@ class LogMessageTest {
         //Expect
         assertEquals(EXPECT_STRING, actualString);
     }
+
+    @Test
+    @DisplayName("When input is not recognized")
+    void notRecognizedInput() {
+        //Given
+        String INPUT = "input not exist";
+        EXPECT_STRING = "The input (input not exist) that user testBot in channel testChannel in server testServer is not recognized";
+        //When
+        String actualString = LogMessage.notRecognizedInput(con, INPUT);
+        //Expect
+        assertEquals(EXPECT_STRING, actualString);
+    }
 }

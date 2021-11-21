@@ -7,6 +7,15 @@ import java.text.MessageFormat;
 
 public class LogMessage {
 
+    //Input is not recognized
+    public static String notRecognizedInput(@NotNull Controller con, String command) {
+        return MessageFormat.format("The input ({0}) that user {1} in channel {2} in server {3} is not recognized",
+                command,
+                con.getName(),
+                con.getChannel(),
+                con.getServer());
+    }
+
     //Steam news: When no game is given
     public static String noGameLog(@NotNull Controller con) {
         return MessageFormat.format("No game was given by {0} in channel {1} in server {2}",

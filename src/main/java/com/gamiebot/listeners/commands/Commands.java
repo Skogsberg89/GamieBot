@@ -1,12 +1,17 @@
 package com.gamiebot.listeners.commands;
 
+import message.LogMessage;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.text.MessageFormat;
 import java.util.Map;
 
 public class Commands extends CommandsLibrary{
+
+    private static final Logger LOG = LoggerFactory.getLogger(Commands.class);
 
     public Commands(@NotNull Controller con) {
         this.con = con;
@@ -26,6 +31,7 @@ public class Commands extends CommandsLibrary{
                 commandDict.get(c).run();
                 break;
             }else {
+                LOG.warn(LogMessage.notRecognizedInput(con, command));
                 commandDoesNotExist();
             }
         }
